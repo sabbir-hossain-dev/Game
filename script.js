@@ -74,4 +74,37 @@ function resetGame(){
     });
 
     statusText.textContent = "Player X Turn";
+
+}
+
+function minimax(board, depth, isMax, alpha, beta){
+
+    if(checkWinner("O")) return 1
+    if(checkWinner("X")) return -1
+    if(isDraw()) return 0
+
+    if(isMax){
+
+        let best = -Infinity
+
+        for(let i=0;i<9;i++){
+
+            if(board[i]==""){
+
+                board[i]="O"
+
+                let score = minimax(board,depth+1,false,alpha,beta)
+
+                board[i]=""
+
+                best = Math.max(best,score)
+                alpha = Math.max(alpha,best)
+
+                if(beta <= alpha) break
+            }
+        }
+
+        return best
+    }
+
 }
